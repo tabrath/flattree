@@ -28,13 +28,13 @@ func TestParents(t *testing.T) {
 		t.Errorf("Index failed; expected %d, got %d", 3, index)
 	}
 
-	if parent := Parent(0); parent != 1 {
+	if parent := Parent(0, 0); parent != 1 {
 		t.Errorf("Parent failed; expected %d, got %d", 1, parent)
 	}
-	if parent := Parent(2); parent != 1 {
+	if parent := Parent(2, 0); parent != 1 {
 		t.Errorf("Parent failed; expected %d, got %d", 1, parent)
 	}
-	if parent := Parent(1); parent != 3 {
+	if parent := Parent(1, 0); parent != 3 {
 		t.Errorf("Parent failed; expected %d, got %d", 3, parent)
 	}
 }
@@ -223,7 +223,7 @@ func TestCount(t *testing.T) {
 }
 
 func TestParentGreaterThanInt32(t *testing.T) {
-	if parent := Parent(10000000000); parent != 10000000001 {
+	if parent := Parent(10000000000, 0); parent != 10000000001 {
 		t.Errorf("Parent failed; not greater than int32")
 	}
 }
@@ -231,7 +231,7 @@ func TestParentGreaterThanInt32(t *testing.T) {
 func TestChildToParentToChild(t *testing.T) {
 	var child uint
 	for i := 0; i < 50; i++ {
-		child = Parent(child)
+		child = Parent(child, 0)
 	}
 	if child != 1125899906842623 {
 		t.Errorf("ChildToParentToChild failed; expected 1125899906842623, got %x", child)

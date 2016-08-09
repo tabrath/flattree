@@ -83,8 +83,10 @@ func Offset(index, depth uint) uint {
 }
 
 // Parent returns the index of the parent element in tree
-func Parent(index uint) uint {
-	depth := Depth(index)
+func Parent(index, depth uint) uint {
+	if depth == 0 {
+		depth = Depth(index)
+	}
 	offset := Offset(index, depth)
 
 	return Index(depth+1, rightShift(offset))
